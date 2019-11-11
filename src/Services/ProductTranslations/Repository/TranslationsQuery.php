@@ -5,6 +5,8 @@ namespace Services\ProductTranslations\Repository;
 
 class TranslationsQuery
 {
+    public const SORT_METHOD_DEFAULT = 0;
+
     public const STATUS_ALL = 0;
     public const STATUS_TRANSLATED = 1;
     public const STATUS_NOT_TRANSLATED = 2;
@@ -25,6 +27,9 @@ class TranslationsQuery
 
     /** @var string[] */
     private $sources = [];
+
+    /** @var int */
+    private $sortMethod = self::SORT_METHOD_DEFAULT;
 
     /** @var int */
     private $limit = self::DEFAULT_LIMIT;
@@ -104,6 +109,16 @@ class TranslationsQuery
     public function setSources(array $sources): void
     {
         $this->sources = $sources;
+    }
+
+    public function getSortMethod(): int
+    {
+        return $this->sortMethod;
+    }
+
+    public function setSortMethod(int $sortMethod): void
+    {
+        $this->sortMethod = $sortMethod;
     }
 
     public function getLimit(): int

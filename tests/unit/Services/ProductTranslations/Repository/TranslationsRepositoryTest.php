@@ -15,7 +15,10 @@ class TranslationsRepositoryTest extends TestCase
         $query->setLimit(100);
         $query->setOffset(0);
 
-        $expectedSql = $this->getBaseQuery() . ' LIMIT 0,100;';
+        $expectedSql = $this->getBaseQuery() . <<<'SQL'
+ORDER BY p.id DESC, t.id DESC, l.id DESC
+LIMIT 0,100;
+SQL;
 
         $this->doTestFindTranslations($query, $expectedSql);
     }
@@ -30,6 +33,7 @@ class TranslationsRepositoryTest extends TestCase
         $expectedSql = $this->getBaseQuery() . <<<SQL
 WHERE
     l.abbreviation IN (:lang0,:lang1)
+ORDER BY p.id DESC, t.id DESC, l.id DESC
 LIMIT 0,100;
 SQL;
 
@@ -51,6 +55,7 @@ SQL;
         $expectedSql = $this->getBaseQuery() . <<<SQL
 WHERE
     t.type IN (:type0,:type1)
+ORDER BY p.id DESC, t.id DESC, l.id DESC
 LIMIT 0,100;
 SQL;
 
@@ -72,6 +77,7 @@ SQL;
         $expectedSql = $this->getBaseQuery() . <<<SQL
 WHERE
     p.id IN (:product0,:product1)
+ORDER BY p.id DESC, t.id DESC, l.id DESC
 LIMIT 0,100;
 SQL;
 
@@ -93,6 +99,7 @@ SQL;
         $expectedSql = $this->getBaseQuery() . <<<SQL
 WHERE
     pt.current_revision_id IS NOT NULL
+ORDER BY p.id DESC, t.id DESC, l.id DESC
 LIMIT 0,100;
 SQL;
 
@@ -109,6 +116,7 @@ SQL;
         $expectedSql = $this->getBaseQuery() . <<<SQL
 WHERE
     pt.current_revision_id IS NULL
+ORDER BY p.id DESC, t.id DESC, l.id DESC
 LIMIT 0,100;
 SQL;
 
@@ -125,6 +133,7 @@ SQL;
         $expectedSql = $this->getBaseQuery() . <<<SQL
 WHERE
     pts.source IN (:source0)
+ORDER BY p.id DESC, t.id DESC, l.id DESC
 LIMIT 0,100;
 SQL;
 
@@ -153,6 +162,7 @@ WHERE
     AND t.type IN (:type0,:type1)
     AND p.id IN (:product0,:product1,:product2)
     AND pts.source IN (:source0)
+ORDER BY p.id DESC, t.id DESC, l.id DESC
 LIMIT 250,500;
 SQL;
 

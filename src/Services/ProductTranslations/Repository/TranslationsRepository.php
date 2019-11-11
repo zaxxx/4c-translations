@@ -42,6 +42,7 @@ LEFT JOIN product_translation_revision ptr
 LEFT JOIN product_translation_source pts
     ON pts.id = ptr.translation_source_id
 %s
+ORDER BY {$this->getOrderBy($query->getSortMethod())}
 LIMIT {$query->getOffset()},{$query->getLimit()};
 SQL;
 
@@ -79,6 +80,12 @@ SQL;
 
         $where[] = $column . ' IN (' . implode(',', array_keys($currentParams)) . ')';
         $params += $currentParams;
+    }
+
+    private function getOrderBy(int $sortMethod): string
+    {
+        // todo implement more sort methods
+        return 'p.id DESC, t.id DESC, l.id DESC';
     }
 
     private function addWhereStatus(int $status, &$where): void
