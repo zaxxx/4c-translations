@@ -209,7 +209,7 @@ SELECT
     t.description               AS type_description,
     p.id                        AS product_id,
     pt.current_revision_id      AS current_revision_id,
-    pt.current_revision_number  AS current_revision_number,
+    ptr.revision                AS current_revision_number,
     ptr.translation             AS current_translation,
     pts.id                      AS source_id,
     pts.source                  AS source,
