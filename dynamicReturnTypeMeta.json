@@ -1,0 +1,9 @@
+{
+  "methodCalls": [
+    {
+      "class": "\\PHPUnit\\Framework\\TestCase",
+      "method": "createMock",
+      "position": 0
+    }
+  ]
+}
