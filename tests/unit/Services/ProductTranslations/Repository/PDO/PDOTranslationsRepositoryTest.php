@@ -1,13 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\Unit\Services\ProductTranslations\Repository;
+namespace Tests\Unit\Services\ProductTranslations\Repository\PDO;
 
 use PHPUnit\Framework\TestCase;
+use Services\ProductTranslations\Repository\PDO\TranslationFromRowFactory;
 use Services\ProductTranslations\Repository\TranslationsQuery;
-use Services\ProductTranslations\Repository\TranslationsRepository;
+use Services\ProductTranslations\Repository\PDO\PDOTranslationsRepository;
 
-class TranslationsRepositoryTest extends TestCase
+class PDOTranslationsRepositoryTest extends TestCase
 {
     public function testFindTranslationsWithDefaultQuery(): void
     {
@@ -196,15 +197,13 @@ SQL;
                         self::assertEquals($expectedParams, $params);
                     });
 
-                $statement->expects(self::once())
-                    ->method('fetchAll')
-                    ->willReturn([]);
-
                 return $statement;
             });
 
-        $repository = new TranslationsRepository($pdo);
-        $repository->findTranslations($query);
+        $repository = new PDOTranslationsRepository($pdo, $this->createMock(TranslationFromRowFactory::class));
+        foreach ($repository->findTranslations($query) as $translation) {
+            // trigger generator
+        }
     }
 
     private function getBaseQuery(): string

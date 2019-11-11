@@ -77,4 +77,12 @@ CREATE TABLE `product_translation_source` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
+ALTER TABLE `product_translation`
+ADD `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ADD `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER `created_at`;
+
+ALTER TABLE `product_translation_revision`
+CHANGE `updated_at` `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP AFTER `created_at`;
+
+
 -- 2019-11-11 13:21:05
